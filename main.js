@@ -31,9 +31,10 @@ class Network {
 	generateNewNodeName () {
 		this.nodeNamesGiven ++
 		return GLOBALS.namesList
-			.map(name => ({ name, score: Math.random() }))
+			/*.map(name => ({ name, score: Math.random() }))
 			.sort((a, b) => a.score - b.score)
-			.map(obj => obj.name)[this.nodeNamesGiven - 1]
+			.map(obj => obj.name)[this.nodeNamesGiven - 1]*/
+			.map(obj => obj)[this.nodeNamesGiven - 1]
 	}
 
   generateFakeDelay () { return Math.random() * 400 + 200 }
@@ -65,7 +66,7 @@ class Network {
 				const distanceX = Math.abs(node.posX - inputX)
 				const distanceY = Math.abs(node.posY - inputY)
 				const distance = Math.sqrt(Math.pow(distanceX, 2)+ Math.pow(distanceY, 2))
-				return distance < 110
+				return distance < 180
 			})].map(node => node.name)
 		return peersNames
 	}
@@ -174,6 +175,19 @@ class Node {
 		return [...new Set(addresses)]
 	}
 
+	get knownNetwork () {
+		const connections = []
+		this.paths.forEach(log => {
+			log.path.forEach((nodeName, i) => {
+				const nextNodeName = i < log.path.length - 1
+					? log.path[i + 1]
+					: this.name
+				connections.push([nodeName, nextNodeName])
+			})
+		})
+		return [...new Set(connections.map(c => c.sort((a, b) => a - b).join(',')))].map(c => c.split(','))
+	}
+
 	getPathsTo (name) {
 		if (this.knownAddresses.indexOf(name) === -1) return []
 		const pathsContainingName = [...this.paths].filter(log => {
@@ -181,71 +195,6 @@ class Node {
 		})
 		console.log(pathsContainingName)
 	}
-
-
-
-	// generateKeys () {
-	// 	const pub = Math.random().toString(36).slice(2)
-	// 	const priv = pub.split('').reverse().join('')
-	// 	const gen = Date.now()
-	// 	this.keysRegister.push({ public: pub, private: priv, generatedOn: gen })
-	// 	return this
-	// }
-
-	// get keys () {
-	// 	return this.keysRegister[this.keysRegister.length - 1]
-	// }
-
-	// get publicKey () { return this.keys.public }
-	// get privateKey () { return this.keys.private }
-	// get keysGeneratedOn () { return this.keys.generatedOn }
-
-	// async salute(peerName) {
-	// 	const response = await network.fetch({
-	// 		requester: this.name,
-	// 		recipient: peerName,
-	// 		subject: 'new-key',
-	// 		data: {
-	// 			public: this.publicKey,
-	// 			generatedOn: this.keysGeneratedOn
-	// 			signature: null
-	// 		}
-	// 	})
-	// 	console.log(response)
-	// 	// [WIP] now we have a connexion (or not)
-	// }
-
-	// receive ({ requester, recipient, subject, data } => {
-	// 	switch (subject) {
-	// 		case 'new-key':
-	// 			const success = this.trySaveKeyLog({
-	// 				peer: requester,
-	// 				public: data.public,
-	// 				signature: data.signature,
-	// 				generatedOn: data.generatedOn
-	// 			})
-	// 			if (success) return {
-	// 				status: 200,
-	// 				data: {
-	// 					public: this.publicKey,
-	// 					generatedOn: this.generatedOn
-	// 				}
-	// 			} else return {
-	// 				status: 500,
-	// 				err: 'Key not accepted.'
-	// 			}
-	// 		default return { err: '' }
-	// 	}
-	// })
-
-	// trySaveKeyLog ({ peer, public, signature, generatedOn }) {
-	// 	if (!signature && !this.isNeighbourOf(peer)) {
-
-	// 	}
-	// 	if (!signature && this.isNeighbourOf(peer)) {
-	// 		const 
-	// 	}
-	// }
 }
 
 /* //////////////////////////////////////////////////////////////////////////////////////////
@@ -270,15 +219,29 @@ document.addEventListener('DOMContentLoaded', () => {
 }, false)
 
 document.addEventListener('click', e => {
-	network.createNode(e.clientX, e.clientY)
+	if (e.target.id === 'canvas') network.createNode(e.clientX, e.clientY)
 })
 
+document.getElementById('select-node').addEventListener('change', e => {
+	selectedNode = e.value
+	draw()
+})
+document.getElementById('select-view').addEventListener('change', () => draw())
+let selectedNode = 'network'
+
 const draw = () => {
+	// Fill the options for view selector
+	const nodeSelect = document.querySelector('#select-node')
+	const viewSelect = document.querySelector('#view-node')
+	nodeSelect.innerHTML = `<option value="network">network</option>`
+	nodeSelect.value = selectedNode
+	network.nodes.forEach(node => { nodeSelect.innerHTML += `<option value="${node.name}">${node.name}</option>` })
+
 	context.clearRect(0, 0, canvas.width, canvas.height)
 	// Reach areas of nodes
   network.nodes.forEach(node => {
 	  const { posX, posY } = node
-		drawCircle(posX, posY, 100, 0, 'rgba(0, 0, 0, .05)', 'rgba(0, 0, 0, 0)')
+		drawCircle(posX, posY, 170, 0, 'rgba(0, 0, 0, .02)', 'rgba(0, 0, 0, 0)')
 	})
 
 	// Wifi connections
@@ -286,9 +249,18 @@ const draw = () => {
 		const { posX, posY, name } = node
 		node.peersNames.forEach(peerName => {
 			const { posX: peerPosX, posY: peerPosY } = network.getNode(peerName)
-			drawLine(posX, posY, peerPosX, peerPosY, 2, 'rgba(0, 0, 0, 0.2)')
+			drawLine(posX, posY, peerPosX, peerPosY, 1, 'rgba(0, 0, 0, 0.1)')
 		})
 	})
+
+	// Paths
+	if (nodeSelect.value !== 'network' && viewSelect.value === 'i-know') {
+		network.getNode(nodeSelect.value).knownNetwork.forEach(connection => {
+			const a = connection[0]
+			const b = connection[1]
+			drawLine(a.posX, a.posY, b.posX, b.posY, 2, 'rgba(0, 0, 0, 0.3')
+		})
+	}
 
   // Nodes and names
 	network.nodes.forEach(node => {
@@ -299,6 +271,9 @@ const draw = () => {
 	})
 
 	// [WIP] fill graphs of "who knows me?"
+	network.nodes.forEach(node => {
+
+	})
 }
 
 const drawCircle = (x, y, radius, border, borderColor, fillColour) => {

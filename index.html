@@ -4,11 +4,16 @@
   <meta charset='utf-8' />
   <title>HTML Canvas Demo</title>
   <link rel='stylesheet' href='./style.css' />
-  <script src="./globals.js"></script>
-  <script src="./main.js"></script>
   </head>
   <body>
-  <canvas id="canvas" />
+  <canvas id="canvas"></canvas>
+  <select id="select-node"><option value="network">network</option></select>
+  <select id="select-view">
+    <option value="i-know">Node known addresses</option>
+    <option value="who-knows-me">Node is known by</option>
+  </select>
   <div id="graphs"></div>
+  <script src="./globals.js"></script>
+  <script src="./main.js"></script>
   </body>
 </html>
