@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="64px" height="64px" viewBox="0 0 64 64" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 53.2 (72643) - https://sketchapp.com -->
+    <title>magnifying-glass-icon_64</title>
+    <desc>Created with Sketch.</desc>
+    <g id="magnifying-glass-icon_64" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <rect id="background" x="0" y="0" width="64" height="64"></rect>
+        <path d="M23.9987201,41.4154934 L12,53.4142136 L10.5857864,52 L22.5845066,40.0012799 C19.7335858,36.8165878 18,32.6107442 18,28 C18,18.0588745 26.0588745,10 36,10 C45.9411255,10 54,18.0588745 54,28 C54,37.9411255 45.9411255,46 36,46 C31.3892558,46 27.1834122,44.2664142 23.9987201,41.4154934 Z M25.3952087,39.9809951 C28.2184001,42.4817637 31.9318985,44 36,44 C44.836556,44 52,36.836556 52,28 C52,19.163444 44.836556,12 36,12 C27.163444,12 20,19.163444 20,28 C20,32.0681015 21.5182363,35.7815999 24.0190049,38.6047913 L25.3952087,39.9809952 Z" id="fill-1"></path>
+    </g>
+</svg>

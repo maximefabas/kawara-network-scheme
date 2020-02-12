@@ -1,0 +1,121 @@
+.lblb-evolution-classement__fixed-rulers {
+  position: sticky;
+  top: 65px;
+  z-index: 200;
+  background: #F9F9F9;
+}
+
+@media screen and (max-width: 63rem) {
+  .lblb-evolution-classement__fixed-rulers {
+    top: 51px;
+    padding: .5rem 0 0 0;
+  }  
+}
+
+.lblb-evolution-classement__intro {
+  padding-top: 1.5rem;
+  padding-bottom: 3rem;
+}
+
+.lblb-evolution-classement__share {
+  display: flex;
+  justify-content: center;
+}
+
+.lblb-evolution-classement__share .lblb-share-article {
+  max-width: calc(100vw - 2rem);
+  width: 30rem;
+  margin-bottom: 3rem;
+}
+
+@media screen and (max-width: 63rem) {
+  .lblb-evolution-classement__share .lblb-share-article {
+    width: 20rem;
+    margin-bottom: 2rem;
+  }  
+}
+
+.lblb-evolution-classement__header {
+  margin-top: 1rem;
+  margin-bottom: .5rem;
+}
+
+.lblb-evolution-classement__header img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.lblb-evolution-classement__image img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.lblb-evolution-classement__text {
+  position: relative;
+  padding-top: 1rem;
+  padding-bottom: 4rem;
+}
+
+.lblb-evolution-classement__text .lblb-slug {
+  margin-bottom: .5rem;
+}
+
+.lblb-evolution-classement__text-bg {
+  position: absolute;
+  z-index: -1;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  opacity: .4;
+  background-size: 100%;
+  background-position: top center;
+}
+
+@media screen and (max-width: 63rem) {
+  .lblb-evolution-classement__text {
+    padding-top: 1rem;
+    padding-bottom: 2rem;
+  }  
+}
+
+.lblb-evolution-classement__sign {
+  margin: 2rem 0;
+}
+
+.lblb-evolution-classement__sign_top {
+  margin-bottom: 0;
+  display: flex;
+  align-items: center;
+}
+
+.lblb-evolution-classement__sign_top .lblb-libe-labo-logo {
+  width: 4rem;
+  margin-right: 1rem;
+  flex-shrink: 0;
+}
+
+.lblb-evolution-classement__logo {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 3rem;
+}
+
+.lblb-evolution-classement__logo .lblb-libe-labo-logo {
+  width: 10rem;
+}
+
+@media screen and (max-width: 63rem) {
+  .lblb-evolution-classement__logo .lblb-libe-labo-logo {
+    width: 8rem;
+  }
+}
+
+@media screen and (max-width: 40rem) {
+  .lblb-evolution-classement__logo .lblb-libe-labo-logo {
+    width: 6rem;
+  }
+}

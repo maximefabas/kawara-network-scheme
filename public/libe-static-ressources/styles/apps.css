@@ -1,0 +1,76 @@
+/* GLOBAL STUFF */
+body {
+  font-size: 1rem;
+  line-height: 1.5rem;
+}
+
+* {
+  box-sizing: border-box;
+  margin: unset;
+}
+
+*, h1, h2, h3, h4, h5, h6, p {
+  margin: unset;
+}
+
+/* APP WRAPPER */
+#libe-labo-app-wrapper {
+  position: relative;
+}
+
+/* DEFAULT LOADER & ERROR */
+.lblb-default-apps-loader,
+.lblb-default-apps-error {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.lblb-default-apps-error .lblb-loading-error {
+  text-align: center;
+}
+
+/* DEFAULT FOOTER */
+.lblb-default-apps-footer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 4rem;
+}
+
+.lblb-default-apps-footer > * {
+  margin: 2rem 0;
+}
+
+.lblb-default-apps-footer .lblb-share-article {
+  width: 16rem;
+  max-width: 100%;
+}
+
+.lblb-default-apps-footer .lblb-article-meta {
+  text-align: center;
+}
+
+.lblb-default-apps-footer .lblb-libe-labo-logo {
+  width: 5rem;
+  max-width: 100%; 
+}
+
+@media screen and (max-width: 63rem) {
+  .lblb-default-apps-footer { margin-bottom: 3rem; }
+  .lblb-default-apps-footer > * { margin: 1.5rem 0; }
+  .lblb-default-apps-footer .lblb-share-article { width: 13rem; }
+  .lblb-default-apps-footer .lblb-libe-labo-logo { width: 5rem; }
+}
+
+@media screen and (max-width: 40rem) {
+  .lblb-default-apps-footer { margin-bottom: 2.5rem; }
+  .lblb-default-apps-footer > * { margin: 1rem 0; }
+  .lblb-default-apps-footer .lblb-share-article { width: 10rem; }
+  .lblb-default-apps-footer .lblb-libe-labo-logo { width: 4rem; }
+}

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="40px" height="40px" viewBox="0 0 40 40" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 49.3 (51167) - http://www.bohemiancoding.com/sketch -->
+    <title>expand-arrows-icon_40</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="expand-arrows-icon_40" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <rect id="background" x="0" y="0" width="40" height="40"></rect>
+        <path d="M32.5821535,6 L23,6 L23,4 L36,4 L36,17 L34,17 L34,7.41057935 L23.7072316,17.706982 L22.2927684,16.293018 L32.5821535,6 Z M7.41421356,34 L17,34 L17,36 L4,36 L4,23 L6,23 L6,32.5857864 L16.2928932,22.2928932 L17.7071068,23.7071068 L7.41421356,34 Z" id="fill-1" fill-rule="nonzero"></path>
+    </g>
+</svg>

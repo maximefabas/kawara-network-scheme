@@ -1,0 +1,199 @@
+/* * * * * * * * * * * * * * * * * *
+ *
+ * Global layout
+ *
+ * * * * * * * * * * * * * * * * * */
+
+.extrapol {
+  display: flex;
+  width: 100%;
+  max-width: 74rem;
+  margin: 0 auto;
+  flex-wrap: wrap;
+  padding: .5rem;
+}
+
+.extrapol__header {
+  width: 100%;
+  flex-shrink: 0;
+  margin-bottom: 3rem;
+}
+
+.extrapol__links {
+  width: 10rem;
+  padding: 1rem;
+  flex-shrink: 0;
+  flex-grow: 0;
+}
+
+.extrapol__content {
+  width: calc(100% - 10rem);
+  padding: 1rem;
+}
+
+@media screen and (max-width: 63rem) {
+  .extrapol {
+    padding: 0;
+  }
+
+  .extrapol__header,
+  .extrapol__links,
+  .extrapol__content {
+    width: 100%;
+  }
+
+  .extrapol__header,
+  .extrapol__links {
+    margin-bottom: 2rem;
+  }
+}
+
+/* * * * * * * * * * * * * * * * * *
+ *
+ * Links
+ *
+ * * * * * * * * * * * * * * * * * */
+
+.extrapol__links > * {
+  margin-bottom: 1rem;
+  display: block;
+}
+
+.extrapol__links img {
+  width: 100%;
+  display: block;
+}
+
+@media screen and (max-width: 63rem) {
+  .extrapol__links {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-around;
+  }
+
+  .extrapol__links > * {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 0;
+    width: calc((100% / 3));
+  }
+
+  .extrapol__links img {
+    max-width: 100%;
+    width: auto;
+    max-height: 2rem;
+    height: auto;
+  }
+}
+
+/* * * * * * * * * * * * * * * * * *
+ *
+ * Header
+ *
+ * * * * * * * * * * * * * * * * * */
+.extrapol__header .extrapol__hero,
+.extrapol__header .extrapol__hat {
+  padding: 2rem;
+}
+
+.extrapol__header .extrapol__hero {
+  height: 20rem;
+  display: flex;
+  flex-direction: column-reverse;
+  background-size: cover;
+  background-position: center;
+}
+
+.extrapol__header .extrapol__hero .lblb-page-title h1 {
+  color: #FFFFFF;
+  text-shadow: 2px 2px 4px rgba(33, 33, 33, 0.3);
+}
+
+@media screen and (max-width: 63rem) {
+  .extrapol__header .extrapol__hero,
+  .extrapol__header .extrapol__hat {
+    padding: 1rem;
+  }
+}
+
+@media screen and (max-width: 40rem) {
+  .extrapol__header .extrapol__hero,
+  .extrapol__header .extrapol__hat {
+    padding: .5rem;
+  }
+
+  .extrapol__header .extrapol__hero {
+    height: 14rem;
+  }
+}
+
+/* * * * * * * * * * * * * * * * * *
+ *
+ * Content
+ *
+ * * * * * * * * * * * * * * * * * */
+
+.extrapol__content .extrapol__day-label {
+  margin-top: 3rem;
+  margin-bottom: 1rem;
+}
+
+.extrapol__content .extrapol__day-label .lblb-slug {
+  margin-bottom: .5rem;
+}
+
+.extrapol__content .extrapol__day-label:first-child {
+  margin-top: 0;
+}
+
+.extrapol__content .extrapol__video-slot {
+  width: 50%;
+  height: 20rem;
+  display: inline-block;
+  overflow: hidden;
+  padding: .5rem;
+}
+
+.extrapol__content .lblb-libe-labo-logo {
+  display: flex;
+  margin-top: 3rem;
+  margin-bottom: 3rem;
+  justify-content: center;
+}
+
+.extrapol__content .lblb-libe-labo-logo img {
+  width: 8rem;
+}
+
+@media screen and (max-width: 63rem) {
+  .extrapol__content .extrapol__video-slot {
+    height: 16rem;
+  }
+}
+
+@media screen and (max-width: 40rem) {
+  .extrapol__content .extrapol__video-slot {
+    width: 100%;
+  }
+}
+
+/* * * * * * * * * * * * * * * * * *
+ *
+ * Video slot
+ *
+ * * * * * * * * * * * * * * * * * */
+
+.extrapol-videoslot {
+  width: 100%;
+  height: calc(100% - 1.5rem);
+  background: aliceblue;
+}
+
+.extrapol-videoslot div {
+  background-size: cover;
+  background-position: center;
+  height: 100%;
+  width: 100%;
+}

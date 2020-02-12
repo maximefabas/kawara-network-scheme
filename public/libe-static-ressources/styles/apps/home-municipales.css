@@ -1,0 +1,819 @@
+#libe-labo-app-wrapper {
+  display: flex;
+  justify-content: center;
+}
+
+#temp-header {
+  max-width: 80rem;
+  margin: 0 auto;
+}
+
+/* * * * * * * * * * * * * * * * *
+ *
+ * Global layout
+ *
+ * * * * * * * * * * * * * * * * */
+.home-municipales {
+  width: 100%;
+  max-width: 80rem;
+  margin: 0 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+@media screen and (max-width: 82rem) {
+  .home-municipales {
+    max-width: 60rem;
+  }
+}
+
+@media screen and (max-width: 64rem) {
+  .home-municipales {
+    margin: 0;
+  }
+}
+
+/* * * * * * * * * * * * * * * * *
+ *
+ * Header
+ *
+ * * * * * * * * * * * * * * * * */
+.home-municipales__header {
+  width: 100%;
+  height: 7rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 2rem 0;
+  padding: 0 1rem;
+  flex-shrink: 0;
+  flex-grow: 0;
+}
+
+.home-municipales__header-logo {
+  cursor: pointer;
+}
+
+.home-municipales__header-logo .lblb-svg svg,
+.home-municipales__header-logo img {
+  height: 7rem;
+}
+
+.home-municipales__header-filters-title {
+  cursor: pointer;
+  margin-bottom: 1rem;
+}
+
+.home-municipales__header-filters {
+  max-width: 36rem;
+  text-align: right;
+}
+
+.home-municipales__filters-block-filter {
+  background: transparent;
+  border: none;
+  padding: 0;
+  display: inline-block;
+  color: #999999;
+  cursor: pointer;
+}
+
+.home-municipales__filters-block-filter-separator {
+  display: inline-block;
+  margin-left: .5rem;
+  margin-right: .5rem;
+}
+
+.home-municipales__header-filters-title
+  .lblb-page-title h1 {
+    font-family: 'Libe-Sans-Semicondensed';
+    font-size: 2rem;
+    line-height: 2rem;
+    text-transform: uppercase;
+    letter-spacing: 0.02rem;
+    font-weight: 800;
+}
+
+.home-municipales__filters-block-filter
+  .lblb-paragraph,
+.home-municipales__filters-block-filter-separator
+  .lblb-paragraph {
+    font-family: 'Libe-Sans';
+    font-size: 1.25rem;
+    line-height: 1.5rem;
+    text-transform: uppercase;
+    letter-spacing: 0.02rem;
+    font-weight: 400;
+}
+
+.home-municipales__header-filters-title
+  .lblb-page-title h1 {
+    color: #004DAD;
+}
+
+.home-municipales__filters-block-filter
+  .lblb-paragraph,
+.home-municipales__filters-block-filter-separator
+  .lblb-paragraph {
+    color: #999999;
+}
+
+.home-municipales__filters-block-filter.home-municipales__filters-block-filter_active
+  .lblb-paragraph {
+    background: #0764CC;
+    color: #FFFFFF;
+}
+
+.home-municipales__filters-block.home-municipales__filters-block_all-active
+  .home-municipales__filters-block-filter
+    .lblb-paragraph,
+.home-municipales__filters-block.home-municipales__filters-block_all-active
+  .home-municipales__filters-block-filter.home-municipales__filters-block-filter_active
+    .lblb-paragraph,
+.home-municipales__filters-block.home-municipales__filters-block_all-active
+  .home-municipales__filters-block-filter-separator
+    .lblb-paragraph {
+      background: transparent;
+      color: #444444;
+}
+
+@media screen and (max-width: 82rem) {
+  .home-municipales__header-logo .lblb-svg svg,
+  .home-municipales__header-logo img {
+    height: 5rem;
+  }
+}
+
+@media screen and (max-width: 64rem) {
+  .home-municipales__header {
+    height: unset;
+    flex-direction: column;
+    margin: 1rem 0;
+    padding: 0 .5rem;
+  }
+
+  .home-municipales__header-logo {
+    margin-bottom: 1rem;
+  }
+
+  .home-municipales__header-logo .lblb-svg svg,
+  .home-municipales__header-logo img {
+    height: 4rem;
+  }
+
+  .home-municipales__header-filters {
+    text-align: center;
+    max-width: 28rem;
+  }
+
+  .home-municipales__header-filters-list {
+    display: flex;
+    max-width: 100%;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .home-municipales__header-filters-title
+    .lblb-page-title h1 {
+      font-size: 1.625rem;
+      line-height: 2rem;
+  }
+
+  .home-municipales__filters-block-filter
+    .lblb-paragraph,
+  .home-municipales__filters-block-filter-separator
+    .lblb-paragraph {
+      font-size: 1.125rem;
+      line-height: 1.5rem;
+  }
+}
+
+@media screen and (max-width: 40rem) {
+  .home-municipales__header-filters-title
+    .lblb-page-title h1 {
+      font-size: 1.5rem;
+      line-height: 1.5rem;
+  }
+
+  .home-municipales__filters-block-filter
+    .lblb-paragraph,
+  .home-municipales__filters-block-filter-separator
+    .lblb-paragraph {
+      font-size: 1rem;
+      line-height: 1rem;
+  }
+}
+
+/* * * * * * * * * * * * * * * * *
+ *
+ * SCROLL TO TOP
+ *
+ * * * * * * * * * * * * * * * * */
+.home-municipales__scroll-to-top {
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  cursor: pointer;
+  position: fixed;
+  left: calc(50vw + 40rem);
+  bottom: 2rem;
+  z-index: 4;
+}
+
+.home-municipales__scroll-to-top
+  .lblb-svg svg {
+    width: 7rem;
+}
+
+.home-municipales.home-municipales_scrolled
+  .home-municipales__scroll-to-top {
+    display: flex;
+}
+
+@media screen and (max-width: 98rem) {
+  .home-municipales.home-municipales_scrolled
+    .home-municipales__scroll-to-top {
+      display: none;
+  }
+}
+
+/* * * * * * * * * * * * * * * * *
+ *
+ * FIXED HEADER
+ *
+ * * * * * * * * * * * * * * * * */
+.home-municipales
+  .home-municipales__fixed-header-mobile {
+    display: none;
+    position: fixed;
+    width: 100%;
+    max-width: 82rem;
+    background: rgba(0, 77, 173, .9);
+    color: #FFFFFF;
+    z-index: 3;
+}
+
+.home-municipales__fixed-header-mobile {
+  justify-content: space-between;
+  align-items: center;
+  padding: .5rem;
+}
+
+.home-municipales__fixed-header-mobile
+  .lblb-paragraph {
+    display: block;
+}
+
+.home-municipales__fixed-header-mobile-logo
+  .lblb-paragraph {
+    font-family: 'Libe-Sans';
+    font-weight: 800;
+    line-height: 1rem;
+    color: #FFFFFF;
+    letter-spacing: 0.02rem;
+}
+
+.home-municipales__fixed-header-mobile-logo,
+.home-municipales__fixed-header-mobile-filters {
+  cursor: pointer;
+}
+
+.home-municipales__fixed-header-mobile-filters
+  .lblb-paragraph {
+    color: #FFFFFF;
+}
+
+@media screen and (max-width: 98rem) {
+  .home-municipales.home-municipales_scrolled
+    .home-municipales__fixed-header-mobile {
+      display: flex;
+  }
+}
+
+/* * * * * * * * * * * * * * * * *
+ *
+ * Tiles layout
+ *
+ * * * * * * * * * * * * * * * * */
+.home-municipales__tiles {
+  width: 100%;
+  flex-shrink: 0;
+  flex-grow: 0;
+}
+
+.home-municipales__col-maker {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  flex-grow: 0;
+  flex-shrink: 0;
+}
+
+.home-municipales__line-maker {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  flex-grow: 0;
+  flex-shrink: 0;
+}
+
+.home-municipales__tile_1 {
+  height: 38rem;
+  width: 48rem;
+}
+
+.home-municipales__tile_2 {
+  height: 22rem;
+  width: 32rem;
+}
+
+.home-municipales__tile_3,
+.home-municipales__tile_4,
+.home-municipales__tile_5,
+.home-municipales__tile_6,
+.home-municipales__tile_8 {
+  height: 16rem;
+  width: 16rem;
+}
+
+.home-municipales__tile_7 {
+  height: 16rem;
+  width: 32rem;
+}
+
+@media screen and (max-width: 82rem) {
+  .home-municipales__tile_1 {
+    height: 32rem;
+    width: 36rem;
+  }
+
+  .home-municipales__tile_2 {
+    height: 19rem;
+    width: 24rem;
+  }
+
+  .home-municipales__tile_3,
+  .home-municipales__tile_4,
+  .home-municipales__tile_5,
+  .home-municipales__tile_6,
+  .home-municipales__tile_8 {
+    height: 13rem;
+    width: 12rem;
+  }  
+
+  .home-municipales__tile_7 {
+    height: 13rem;
+    width: 24rem;
+  }
+}
+
+@media screen and (max-width: 64rem) {
+  .home-municipales {
+    width: 100%;
+  }
+
+  .home-municipales__col-maker {
+    flex-direction: column;
+  }
+
+  .home-municipales__tile_1 {
+    height: unset;
+    width: 100%;
+  }
+
+  .home-municipales__tile_2 {
+    height: unset;
+    width: 100%;
+  }
+
+  .home-municipales__tile_3,
+  .home-municipales__tile_4,
+  .home-municipales__tile_5,
+  .home-municipales__tile_6,
+  .home-municipales__tile_7,
+  .home-municipales__tile_8 {
+    height: unset;
+    width: 100%;
+  }
+
+  .home-municipales__tile_1
+    .home-municipales__tile-photo {
+      height: 16rem;
+  }
+
+  .home-municipales__tile_2
+    .home-municipales__tile-photo {
+      height: 12rem;
+  }
+
+  .home-municipales__tile_3
+    .home-municipales__tile-photo,
+  .home-municipales__tile_4
+    .home-municipales__tile-photo,
+  .home-municipales__tile_5
+    .home-municipales__tile-photo,
+  .home-municipales__tile_6
+    .home-municipales__tile-photo,
+  .home-municipales__tile_7
+    .home-municipales__tile-photo,
+  .home-municipales__tile_8
+    .home-municipales__tile-photo {
+      height: 8rem;
+  }
+
+  .home-municipales__tile_5,
+  .home-municipales__tile_6,
+  .home-municipales__tile_7,
+  .home-municipales__tile_8 {
+    display: none;
+  }
+}
+
+/* * * * * * * * * * * * * * * * *
+ *
+ * Tiles
+ *
+ * * * * * * * * * * * * * * * * */
+.home-municipales__tile {
+  padding: 1rem;
+  flex-grow: 0;
+  flex-shrink: 0;
+}
+
+.home-municipales__tile-inner {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  position: relative;
+  background: #000000;
+  display: flex;
+  align-items: flex-end;
+  cursor: pointer;
+  box-shadow: 0 0 .125rem .125rem rgba(33, 33, 33, .2);
+  transition: box-shadow 200ms;
+}
+
+.home-municipales__tile.home-municipales__tile_active
+  .home-municipales__tile-inner {
+    box-shadow: 0 0 0 .25rem #004DAD;
+}
+
+.home-municipales__tile-photo {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  z-index: 1;
+  background-position: center;
+  background-size: cover;
+  transition: transform 400ms ease-in-out, filter 200ms, opacity 200ms;
+  -webkit-filter: grayscale(100%); /* Safari 6.0 - 9.0 */
+  filter: grayscale(100%);
+  opacity: .4;
+}
+
+.home-municipales__tile.home-municipales__tile_active
+  .home-municipales__tile-photo {
+    -webkit-filter: grayscale(0%); /* Safari 6.0 - 9.0 */
+    filter: grayscale(0%);
+    opacity: 1;
+}
+
+.home-municipales__tile:hover
+  .home-municipales__tile-photo {
+    transform: scale(1.1);
+}
+
+.home-municipales__tile-titles {
+  z-index: 2;
+  background: rgba(255, 255, 255, .9);
+  position: relative;
+  padding: .5rem;
+  max-width: 30rem;
+}
+
+.home-municipales__tile-slug-and-subscribers {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.home-municipales__tile a {
+  text-decoration: none;
+}
+
+.home-municipales__tile-title
+  .lblb-block-title {
+    font-family: 'Libe-Sans-Semicondensed'
+}
+
+.home-municipales__tile-slug {
+  margin-bottom: .5rem;
+  margin-right: .5rem;
+}
+
+.home-municipales__tile-slug
+  .lblb-slug {
+    background: #555555;
+    transition: background 200ms;
+}
+
+.home-municipales__tile-subscribers-only
+  .lblb-slug {
+    background: #F7B142;
+    color: #FFFFFF;
+}
+
+/* Active modifier */
+.home-municipales__tile.home-municipales__tile_active
+  .home-municipales__tile-slug
+    .lblb-slug {
+      background: #004DAD;
+}
+
+/* Subscribers only modifier */
+.home-municipales__tile
+  .home-municipales__tile-subscribers-only {
+    display: none;
+}
+
+.home-municipales__tile.home-municipales__tile_subscribers-only
+  .home-municipales__tile-subscribers-only {
+    display: block;
+}
+
+@media screen and (max-width: 82rem) {
+  .home-municipales__tile {
+    padding: .5rem;
+  } 
+}
+
+@media screen and (max-width: 64rem) {
+  .home-municipales__tile {
+    padding: .5rem;
+    padding-bottom: .25rem;
+  }
+
+  .home-municipales__tile-inner {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .home-municipales__tile-photo {
+    position: relative;
+  }
+
+  .home-municipales__tile-titles {
+    max-width: unset;
+    width: 100%;
+    background: rgba(255, 255, 255, 1);
+  }
+
+  .home-municipales__tile-slug {
+    margin-bottom: .25rem;
+  }
+}
+
+/* * * * * * * * * * * * * * * * *
+ *
+ * Categories
+ *
+ * * * * * * * * * * * * * * * * */
+.home-municipales__categories {
+  margin-top: 2rem;
+  padding: 0 1rem;
+  max-width: 62rem;
+  width: 100%;
+  flex-shrink: 0;
+  flex-grow: 0;
+}
+
+.home-municipales__categories-title {
+  margin-bottom: .5rem;
+}
+
+.home-municipales__categories-title
+  .lblb-paragraph {
+    font-family: 'Libe-Sans-Semicondensed';
+    text-transform: uppercase;
+    letter-spacing: 0.02rem;
+    font-weight: 600;
+    font-size: 1.5rem;
+    line-height: 2rem;
+    color: #004DAD;
+}
+
+@media screen and (max-width: 64rem) {
+  .home-municipales__categories {
+    padding: 0 .5rem;
+  }
+}
+
+@media screen and (max-width: 40rem) {
+  .home-municipales__categories-title {
+    font-size: 1.25rem;
+    line-height: 2rem;
+
+  }
+}
+
+/* * * * * * * * * * * * * * * * *
+ *
+ * Category index
+ *
+ * * * * * * * * * * * * * * * * */
+.home-municipales__category-index {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+.home-municipales__category-index-title {
+  width: 100%;
+  padding-top: .5rem;
+  margin: .5rem 0;
+  border-top: calc(.25rem) solid #004DAD;
+}
+
+.home-municipales__category-index-title
+  .lblb-slug {
+    background: #004DAD;
+    color: #FFFFFF;
+}
+
+.home-municipales__category-index-title a {
+  color: #FFFFFF;
+  text-decoration: none;
+}
+
+.home-municipales__category-index-list {
+  display: flex;
+  flex-wrap: wrap;
+  width: calc(100% + .5rem);
+  flex-shrink: 0;
+  flex-grow: 0;
+  margin: -.25rem;
+  margin-bottom: 0;
+}
+
+.home-municipales__category-index-article {
+  width: 50%;
+  flex-shrink: 0;
+  flex-grow: 0;
+}
+
+.home-municipales__category-index-show-more {
+  display: none;
+  margin-top: .5rem;
+}
+
+.home-municipales__category-index-show-more
+  .lblb-paragraph {
+    color: #777777;
+}
+
+.home-municipales__category-index-show-more
+  .lblb-paragraph a {
+    border-bottom-color: #999999;
+}
+
+.home-municipales__category-index.home-municipales__category-index_display-show-more
+  .home-municipales__category-index-show-more {
+    display: block;
+}
+
+@media screen and (max-width: 64rem) {
+  .home-municipales__category-index {
+    margin-top: 0;
+  }
+
+  .home-municipales__category-index-article {
+    width: 100%;
+  }
+
+  .home-municipales__category-index-show-more {
+    margin-bottom: 0;
+  }
+}
+
+/* * * * * * * * * * * * * * * * *
+ *
+ * Small tile
+ *
+ * * * * * * * * * * * * * * * * */
+.home-municipales__small-tile {
+  padding: .25rem;
+}
+
+.home-municipales__small-tile a {
+  color: unset;
+  text-decoration: unset;
+}
+
+.home-municipales__small-tile-inner {
+  border: 1px solid #CCCCCC;
+  padding: .5rem;
+  display: flex;
+  justify-content: space-between;
+  cursor: pointer;
+  transition: border 200ms, box-shadow 200ms;
+}
+
+.home-municipales__small-tile-inner:hover {
+  border: 1px solid #004DAD;
+  box-shadow: 0 0 0 .125rem #004DAD;
+}
+
+.home-municipales__small-tile-titles {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.home-municipales__small-tile-title
+  .lblb-paragraph,
+.home-municipales__small-tile-date
+  .lblb-annotation {
+    font-size: .875rem;
+    line-height: 1rem;
+}
+
+.home-municipales__small-tile-title
+  .lblb-paragraph {
+    display: block;
+}
+
+.home-municipales__small-tile-date
+  .lblb-annotation {
+    color: #999999;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.home-municipales__small-tile-subscribers-only
+  .lblb-slug {
+    background: #F7B142;
+    color: #FFFFFF;
+}
+
+.home-municipales__small-tile-photo {
+  width: 6rem;
+  height: 4rem;
+  background-size: cover;
+  background-position: center;
+  flex-shrink: 0;
+  flex-grow: 0;
+  margin-left: .5rem;
+}
+
+/* Subscribers only modifier */
+.home-municipales__small-tile
+  .home-municipales__small-tile-subscribers-only {
+    display: none;
+}
+
+.home-municipales__small-tile.home-municipales__small-tile_subscribers-only
+  .home-municipales__small-tile-subscribers-only {
+    display: block;
+}
+
+@media screen and (max-width: 64rem) {
+  .home-municipales__small-tile {
+    padding: 0 .125rem;
+    margin-top: -1px;
+  }
+
+  .home-municipales__small-tile-inner {
+    border: none;
+    border-radius: none;
+    border-top: 1px solid #CCCCCC;
+    border-bottom: 1px solid #CCCCCC;
+    padding: .5rem .25rem;
+  }
+
+  .home-municipales__category-index-article:first-child
+    .home-municipales__small-tile-inner {
+      /*border-top: .125rem solid #004DAD;*/
+      border-top: none;
+  }
+
+  .home-municipales__category-index-article:last-child
+    .home-municipales__small-tile-inner {
+      /*border-top: .125rem solid #004DAD;*/
+      border-bottom: none;
+  }
+
+  .home-municipales__small-tile-title
+    .lblb-paragraph,
+  .home-municipales__small-tile-date
+    .lblb-annotation {
+      font-size: 0.75rem;
+      line-height: 1rem;
+  }
+
+  .home-municipales__small-tile-photo {
+    width: 4rem;
+    height: 3rem;
+  }
+}

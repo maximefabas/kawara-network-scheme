@@ -1,0 +1,106 @@
+.container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  width: 63rem;
+}
+
+.image {
+  width: 23rem;
+}
+
+.image img {
+  width: 100%;
+  height: auto;
+}
+
+.speech {
+  width: 100%;
+  max-width: 38rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.speech .lblb-paragraph {
+  padding: 0.5rem 0;
+}
+
+.sentence {
+  position: relative;
+}
+
+.sentence:hover {
+  background-color: #eeeeee;
+}
+
+.sentence:hover .sentence__tooltip {
+  opacity: 1;
+}
+
+.sentence__tooltip {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  transform: translateY(-100%);
+  width: fit-content;
+  padding: 0.5rem;
+  background-color: #e91845;
+  color: white;
+  box-shadow: 0 0 .5rem 0 rgba(33, 33, 33, .2);
+  text-align: center;
+  opacity: 0;
+  -webkit-user-select: none; /* Safari */        
+  -moz-user-select: none; /* Firefox */
+  -ms-user-select: none; /* IE10+/Edge */
+  user-select: none; /* Standard */
+}
+
+.generateButton {
+  cursor: pointer;
+  background: #e91845;
+  padding: 0.5rem;
+  margin: 0;
+  margin-bottom: 1rem;
+  border: none;
+  display: flex;
+  align-items: center;
+  align-self: center;
+}
+
+.generateButton > .lblb-paragraph {
+  color: white;
+  margin-bottom: 0.25rem;
+}
+
+.generateButton > img {
+  margin-left: 0.5rem;
+  height: 2rem;
+  width: 2rem;
+  flex-shrink: 0;
+}
+
+.generateButton:focus {
+  outline: none;
+}
+
+.generateButton:hover {
+  opacity: .8;
+}
+
+@media screen and (max-width: 63rem) {
+  .container {
+    width: 100%;
+    flex-direction: column;
+  }
+
+  .image {
+    width: 100%;
+    display: block;
+    margin-bottom: 1rem;
+  }
+
+  .generateButton {
+    margin-bottom: 1rem;
+  }
+}

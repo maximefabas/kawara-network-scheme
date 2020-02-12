@@ -1,0 +1,864 @@
+button {
+  cursor: pointer;
+}
+
+body.body_prevent-scroll {
+  overflow: hidden;
+  padding-right: 1rem;
+}
+
+@media screen and (max-width: 63rem) {
+  body.body_prevent-scroll {
+    padding-right: 0;
+  }  
+}
+
+li {
+  padding: 0;
+}
+
+#libe-menu
+  .header-fix-nav {
+    z-index: 1000 !important;
+}
+
+.lblb-annotation {
+  line-height: 1rem;
+}
+
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+ *
+ * Header
+ *
+ * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+.primaires-democrates-header {
+  background: #0058A2;
+  margin-bottom: 2rem;
+}
+
+.primaires-democrates-header_desktop {
+  display: flex;
+}
+
+.primaires-democrates-header_mobile {
+  display: none;
+}
+
+@media screen and (max-width: 63rem) {
+  .primaires-democrates-header_desktop {
+    display: none;
+  }
+
+  .primaires-democrates-header_mobile {
+    display: flex;
+  }
+
+  .primaires-democrates_scores-is-active
+    .primaires-democrates-calendar,
+  .primaires-democrates_go-back-to-scores
+    .primaires-democrates-calendar {
+      display: none;
+  }
+
+  .primaires-democrates_calendar-is-active
+    .primaires-democrates-scores,
+  .primaires-democrates_go-back-to-calendar
+    .primaires-democrates-scores {
+      display: none;
+  }
+}
+
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+ *
+ * Header - Desktop
+ *
+ * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+.primaires-democrates-header_desktop {
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+}
+
+.primaires-democrates-header_desktop
+  .lblb-page-title span {
+    color: #FFFFFF;
+    font-size: 4rem;
+    line-height: 4rem;
+    font-family: 'Libe-Sans-Semicondensed';
+    letter-spacing: 0.05rem;
+}
+
+.primaires-democrates-header_desktop
+  .lblb-page-title span:nth-child(2) {
+    font-weight: 400;
+}
+
+.primaires-democrates-header_desktop-right {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+.primaires-democrates-header_desktop
+  .lblb-libe-labo-logo img {
+    height: 5rem;
+    width: auto;
+}
+
+.primaires-democrates-header_desktop
+  .lblb-article-meta {
+    max-width: 15rem;
+    text-align: right;
+}
+
+.primaires-democrates-header_desktop
+  .lblb-article-meta__label,
+.primaires-democrates-header_desktop
+  .lblb-article-meta__line {
+    color: #FFFFFF;
+}
+
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+ *
+ * Header - Mobile
+ *
+ * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+.primaires-democrates-header_mobile {
+  padding: 1rem;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.primaires-democrates-header_mobile > * {
+  margin-bottom: 1rem;
+}
+
+.primaires-democrates-header_mobile
+  .lblb-page-title span {
+    color: #FFFFFF;
+    font-size: 2.5rem;
+    line-height: 3rem;
+    font-family: 'Libe-Sans-Semicondensed';
+    letter-spacing: 0.05rem;
+    text-align: center;
+}
+
+.primaires-democrates-header_mobile
+  .lblb-page-title span:nth-child(2) {
+    font-weight: 400;
+}
+
+.primaires-democrates-header_mobile
+  .lblb-libe-labo-logo {
+    display: flex;
+    justify-content: center;
+}
+
+.primaires-democrates-header_mobile
+  .lblb-libe-labo-logo img {
+    height: 5rem;
+    width: auto;
+}
+
+.primaires-democrates-header_mobile
+  .lblb-article-meta {
+    text-align: center;
+}
+
+.primaires-democrates-header_mobile
+  .lblb-article-meta__label,
+.primaires-democrates-header_mobile
+  .lblb-article-meta__line {
+    color: #FFFFFF;
+}
+
+.primaires-democrates-header_mobile
+  button {
+    background: transparent;
+    border: none;
+}
+
+.primaires-democrates-header_mobile
+  button .lblb-svg svg {
+    height: 3rem;
+    width: 3rem;
+}
+
+.primaires-democrates-header_mobile
+  button .lblb-svg #fill-1 {
+    fill: #FFFFFF;
+}
+
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+ *
+ * Sticky header
+ *
+ * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+.primaires-democrates-sticky-header {
+  display: none;
+  background: #0058A2;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  padding: .5rem;
+  z-index: 100;
+}
+
+.primaires-democrates-sticky-header
+  .lblb-page-title {
+    color: #FFFFFF;
+}
+
+.primaires-democrates-sticky-header
+  .lblb-page-title span {
+    font-size: 1.5rem;
+    line-height: 1.5rem;
+    font-family: 'Libe-Sans-Semicondensed';
+    letter-spacing: 0.05rem;
+    text-align: center;
+}
+
+.primaires-democrates-sticky-header
+  .lblb-page-title span:nth-child(2) {
+    font-weight: 400;
+}
+
+@media screen and (max-width: 63rem) {
+  .primaires-democrates-sticky-header_visible {
+    display: block;
+  }
+}
+
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+ *
+ * Share
+ *
+ * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+.primaires-democrates-share {
+  max-width: 16rem;
+  margin: 0 auto;
+  margin-bottom: 2rem;
+}
+
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+ *
+ * Intro
+ *
+ * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+.primaires-democrates-intro {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+.primaires-democrates-intro
+  .lblb-block-title {
+    text-align: center;
+    margin-bottom: 1rem;
+}
+
+.primaires-democrates-intro
+  .lblb-paragraph a {
+    text-align: center;
+    text-transform: uppercase;
+    font-size: 1rem;
+    font-weight: 600;
+    color: #e91845;
+}
+
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+ *
+ * Scores
+ *
+ * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+.primaires-democrates-scores {
+  max-width: 63rem;
+  margin: 0 auto;
+  padding: 0 1rem;
+  margin-bottom: 2rem;
+}
+
+@media screen and (max-width: 63rem) {
+  .primaires-democrates-scores {
+    padding: 0 .5rem;
+  }
+}
+
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+ *
+ * Candidates
+ *
+ * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+.primaires-democrates-candidate {
+  width: 100%;
+  height: 4rem;
+  margin: 1rem 0;
+  display: flex;
+  align-items: center;
+  position: relative;
+  cursor: pointer;
+}
+
+.primaires-democrates-candidate__score-gauge-range {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 2rem;
+  right: 0;
+  z-index: 1;
+}
+
+.primaires-democrates-candidate__score-gauge {
+  color: transparent;
+  font-size: 1px;
+  -webkit-user-select: none; /* Safari */
+  -moz-user-select: none; /* Firefox */
+  -ms-user-select: none; /* IE10+/Edge */
+  background: #A0C1DD;
+  margin-top: .25rem;
+  height: calc(100% - .5rem);
+  width: 0%;
+}
+
+.primaires-democrates-candidate__photo {
+  height: 4rem;
+  width: 4rem;
+  border-radius: 1000rem;
+  background-size: cover;
+  background-position: center;
+  color: transparent;
+  font-size: 1px;
+  -webkit-user-select: none; /* Safari */
+  -moz-user-select: none; /* Firefox */
+  -ms-user-select: none; /* IE10+/Edge */
+  user-select: none; /* Standard */
+  border: .125rem solid #0058A2;
+  margin-right: .5rem;
+  z-index: 2;
+}
+
+.primaires-democrates-candidate__name {
+  margin-right: .5rem;
+  flex-shrink: 1;
+  z-index: 3;
+}
+
+.primaires-democrates-candidate__score {
+  margin-right: .5rem;
+  flex-shrink: 1;
+  z-index: 4;
+}
+
+.primaires-democrates-candidate__name
+  .lblb-block-title span,
+.primaires-democrates-candidate__score
+  .lblb-block-title span {
+    font-family: 'Libe-Sans-Semicondensed';
+    letter-spacing: 0.05rem;
+    color: #0058A2;
+}
+
+.primaires-democrates-candidate__score
+  .lblb-block-title span {
+    font-weight: 400;
+}
+
+@media screen and (max-width: 63rem) {
+  .primaires-democrates-candidate {
+    height: 3rem;
+    margin: .5rem 0;
+  }
+
+  .primaires-democrates-candidate__score-gauge-range {
+    left: 1.5rem;
+  }
+
+  .primaires-democrates-candidate__photo {
+    height: 3rem;
+    width: 3rem;
+  }
+}
+
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+ *
+ * Calendar
+ *
+ * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+.primaires-democrates-calendar {
+  max-width: 63rem;
+  margin: 0 auto;
+  padding: 0 1rem;
+  margin-bottom: 2rem;
+  padding-top: 2rem;
+  border-top: .25rem solid #0058A2;
+}
+
+.primaires-democrates-calendar
+  .lblb-inter-title {
+    margin-bottom: 2rem;
+}
+
+.primaires-democrates-calendar
+  .lblb-inter-title h2 {
+    text-transform: uppercase;
+    color: #0058A2;
+    font-weight: 400;
+    letter-spacing: 0.05rem;
+    font-family: 'Libe-Sans-Semicondensed';
+}
+
+@media screen and (max-width: 63rem) {
+  .primaires-democrates-calendar {
+    padding: 0 .5rem;
+    border-top: none;
+  }
+
+  .primaires-democrates-calendar
+    .lblb-inter-title {
+      display: none;
+  }
+}
+
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+ *
+ * State
+ *
+ * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+.primaires-democrates-state {
+  display: flex;
+  align-items: flex-start;
+  margin: 1rem 0;
+  opacity: .6;
+}
+
+.primaires-democrates-state_is-passed {
+  opacity: 1;
+  cursor: pointer;
+}
+
+.primaires-democrates-state__date
+  .lblb-block-title span,
+.primaires-democrates-state__name
+  .lblb-block-title span {
+  font-family: 'Libe-Sans-Semicondensed';
+  letter-spacing: 0.05rem;
+  text-transform: uppercase;
+}
+
+.primaires-democrates-state__date
+  .lblb-block-title span {
+    color: #D21822;
+    font-weight: 400;
+}
+
+.primaires-democrates-state__name
+  .lblb-block-title span {
+    color: #0058A2;
+}
+
+.primaires-democrates-state__see-detail {
+  display: none;
+  height: 1.5rem;
+  overflow-y: hidden;
+}
+
+.primaires-democrates-state__see-detail
+  button {
+    background: transparent;
+    border: none;
+    padding: 0;
+}
+
+.primaires-democrates-state__see-detail
+  .lblb-svg #fill-1 {
+    fill: #0058A2;
+}
+
+.primaires-democrates-state_is-passed
+  .primaires-democrates-state__see-detail {
+    display: block;
+}
+
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+ *
+ * Navigation
+ *
+ * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+.primaires-democrates-navigation {
+  position: fixed;
+  z-index: 300;
+  bottom: .25rem;
+  left: .25rem;
+  right: .25rem;
+  background: red;
+  display: none;
+}
+
+.primaires-democrates-navigation
+  button {
+    height: 3rem;
+    border: none;
+    padding: 0;
+    flex-grow: 0;
+    flex-shrink: 0;
+    background: #ffffff;
+    box-shadow: 0 0 0 1px #0058A2 inset, 0 0 0 1px #0058A2;
+}
+
+.primaires-democrates-navigation
+  button .lblb-paragraph {
+    text-transform: uppercase;
+    color: #0058A2;
+}
+
+.primaires-democrates-navigation__go-to-scores,
+.primaires-democrates-navigation__go-to-calendar {
+  width: 50%;
+}
+
+.primaires-democrates-navigation__go-back-to-scores,
+.primaires-democrates-navigation__go-back-to-calendar {
+  width: 100%;
+}
+
+/* 'scores-is-active' modifier */
+.primaires-democrates_scores-is-active
+  .primaires-democrates-navigation__go-to-scores {
+    background: #0058A2;
+}
+
+.primaires-democrates_scores-is-active
+  .primaires-democrates-navigation__go-to-scores
+    .lblb-paragraph {
+      color: #FFFFFF;
+}
+
+.primaires-democrates_scores-is-active
+  .primaires-democrates-navigation__go-back-to-scores,
+.primaires-democrates_scores-is-active
+  .primaires-democrates-navigation__go-back-to-calendar {
+    display: none;
+}
+
+/* 'calendar-is-active' modifier */
+.primaires-democrates_calendar-is-active
+  .primaires-democrates-navigation__go-to-calendar {
+    background: #0058A2;
+}
+
+.primaires-democrates_calendar-is-active
+  .primaires-democrates-navigation__go-to-calendar
+    .lblb-paragraph {
+      color: #FFFFFF;
+}
+
+.primaires-democrates_calendar-is-active
+  .primaires-democrates-navigation__go-back-to-scores,
+.primaires-democrates_calendar-is-active
+  .primaires-democrates-navigation__go-back-to-calendar {
+    display: none;
+}
+
+/* 'go-back-to-scores' modifier */
+.primaires-democrates_go-back-to-scores
+  .primaires-democrates-navigation__go-to-scores,
+.primaires-democrates_go-back-to-scores
+  .primaires-democrates-navigation__go-to-calendar,
+.primaires-democrates_go-back-to-scores
+  .primaires-democrates-navigation__go-back-to-calendar {
+    display: none;
+}
+
+/* 'go-back-to-calendar' modifier */
+.primaires-democrates_go-back-to-calendar
+  .primaires-democrates-navigation__go-to-scores,
+.primaires-democrates_go-back-to-calendar
+  .primaires-democrates-navigation__go-to-calendar,
+.primaires-democrates_go-back-to-calendar
+  .primaires-democrates-navigation__go-back-to-scores {
+    display: none;
+}
+
+@media screen and (max-width: 63rem) {
+  .primaires-democrates-navigation {
+    display: flex;
+  }
+}
+
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+ *
+ * Detail panel
+ *
+ * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+.primaires-democrates-detail-panel {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(33, 33, 33, .8);
+  z-index: 200;
+}
+
+.primaires-democrates_show-detail-panel
+  .primaires-democrates-detail-panel {
+    display: block;
+}
+
+.primaires-democrates-detail-panel__inner-1 {
+  margin: .5rem auto;
+  height: calc(100% - 1rem);
+  width: calc(100% - 1rem);
+  max-width: 30rem;
+  display: flex;
+  align-items: center;
+}
+
+.primaires-democrates-detail-panel__inner-2 {
+  background: #ffffff;
+  width: 100%;
+  max-height: 100%;
+  position: relative;
+  padding: 1rem;
+  overflow-y: scroll;
+}
+
+.primaires-democrates-detail-panel__close {
+  background: transparent;
+  padding: 0;
+  border: 0;
+  position: absolute;
+  top: .5rem;
+  right: .5rem;
+}
+
+.primaires-democrates-detail-panel__close
+  .lblb-svg #background {
+    fill: #ffffff;
+}
+
+.primaires-democrates-detail-panel__close
+  .lblb-svg #fill-1 {
+    fill: #0058A2;
+}
+
+.primaires-democrates-detail-panel__read-also {
+  display: none;
+  padding-top: 1rem;
+}
+
+.primaires-democrates-detail-panel__read-also >
+  .lblb-block-title {
+    margin-bottom: .5rem;
+}
+
+.primaires-democrates-detail-panel__link {
+  text-decoration: none;
+}
+
+.primaires-democrates-detail-panel__link
+  .lblb-block-title span {
+    display: inline;
+}
+
+.primaires-democrates-detail-panel__link-slug,
+.primaires-democrates-detail-panel__link-title {
+  font-family: 'Libe-Sans-Semicondensed';
+  letter-spacing: 0.05rem;
+}
+
+.primaires-democrates-detail-panel__link-slug {
+  color: #D21822;
+  text-transform: uppercase;
+  margin-right: .5rem;
+  font-weight: 400;
+}
+
+.primaires-democrates-detail-panel__link-title {
+  color: #0058A2;
+}
+
+@media screen and (max-width: 63rem) {
+  .primaires-democrates-detail-panel__inner-1 {
+    margin-bottom: 0;
+    max-height: calc(100% - 4.25rem);
+  }
+
+  .primaires-democrates-detail-panel__read-also {
+    display: block;
+  }
+}
+
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+ *
+ * Explanations
+ *
+ * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+.primaires-democrates-explanations
+  .lblb-block-title {
+    margin-bottom: 1rem;
+    max-width: calc(100% - 1rem);
+}
+
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+ *
+ * State details
+ *
+ * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+.primaires-democrates-state-details__head {
+  display: flex;
+  margin-bottom: 1rem;
+}
+
+.primaires-democrates-state-details__date
+  .lblb-block-title span,
+.primaires-democrates-state-details__name
+  .lblb-block-title span {
+  font-family: 'Libe-Sans-Semicondensed';
+  letter-spacing: 0.05rem;
+  text-transform: uppercase;
+}
+
+.primaires-democrates-state-details__date
+  .lblb-block-title span {
+    color: #D21822;
+    font-weight: 400;
+}
+
+.primaires-democrates-state-details__name
+  .lblb-block-title span {
+    color: #0058A2;
+}
+
+.primaires-democrates-state-details__candidate-score {
+  margin-bottom: .5rem;
+}
+
+.primaires-democrates-state-details__candidate-score
+  .lblb-paragraph {
+    font-family: 'Libe-Sans-Semicondensed';
+    letter-spacing: 0.05rem;
+}
+
+.primaires-democrates-state-details__candidate-name,
+.primaires-democrates-state-details__candidate-percentage {
+  margin-right: .5rem;
+}
+
+.primaires-democrates-state-details__candidate-score-gauge {
+  color: transparent;
+  font-size: 1px;
+  -webkit-user-select: none; /* Safari */
+  -moz-user-select: none; /* Firefox */
+  -ms-user-select: none; /* IE10+/Edge */
+  width: 100%;
+  height: .125rem;
+  background-color: #212121;
+}
+
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+ *
+ * Candidate bio
+ *
+ * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+.primaires-democrates-candidate-bio__head {
+  display: flex;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.primaires-democrates-candidate-bio__photo {
+  height: 3rem;
+  width: 3rem;
+  border-radius: 1000rem;
+  background-size: cover;
+  background-position: center;
+  color: transparent;
+  font-size: 1px;
+  -webkit-user-select: none; /* Safari */
+  -moz-user-select: none; /* Firefox */
+  -ms-user-select: none; /* IE10+/Edge */
+  user-select: none; /* Standard */
+  border: .125rem solid #0058A2;
+  margin-right: .5rem;
+}
+
+.primaires-democrates-candidate-bio__name
+  .lblb-paragraph {
+    font-family: 'Libe-Sans-Semicondensed';
+    letter-spacing: 0.05rem;
+    font-weight: 600;
+    color: #0058A2;
+}
+
+.primaires-democrates-candidate-bio__bio
+  .lblb-jsx-interpreter
+    p {
+      margin-bottom: 1em;
+}
+
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+ *
+ * Read also
+ *
+ * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+.primaires-democrates-read-also {
+  max-width: 63rem;
+  margin: 0 auto;
+  padding: 0 1rem;
+  margin-bottom: 2rem;
+  padding-top: 2rem;
+  border-top: .25rem solid #0058A2;
+}
+
+.primaires-democrates-read-also
+  .lblb-inter-title {
+    margin-bottom: 2rem;
+}
+
+.primaires-democrates-read-also
+  .lblb-inter-title h2 {
+    text-transform: uppercase;
+    color: #0058A2;
+    font-weight: 400;
+    letter-spacing: 0.05rem;
+    font-family: 'Libe-Sans-Semicondensed';
+}
+
+.primaires-democrates-read-also__link {
+  text-decoration: none;
+  margin-bottom: .5rem;
+}
+
+.primaires-democrates-read-also__link
+  .lblb-block-title span {
+    display: inline;
+}
+
+.primaires-democrates-read-also__link-slug,
+.primaires-democrates-read-also__link-title {
+  font-family: 'Libe-Sans-Semicondensed';
+  letter-spacing: 0.05rem;
+}
+
+.primaires-democrates-read-also__link-slug {
+  color: #D21822;
+  text-transform: uppercase;
+  margin-right: .5rem;
+  font-weight: 400;
+}
+
+.primaires-democrates-read-also__link-title {
+  color: #0058A2;
+}
+
+@media screen and (max-width: 63rem) {
+  .primaires-democrates-read-also {
+    padding: 0 .5rem;
+    border-top: none;
+    margin-bottom: 5rem;
+  }
+}

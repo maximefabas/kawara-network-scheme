@@ -1,0 +1,30 @@
+.font-fam_libe-sans {
+  font-family: 'Libe-Sans', 'Helvetica', 'Arial', sans-serif; }
+.font-fam_libe-sans-cond {
+  font-family: 'Libe-Sans-Condensed', 'Helvetica', 'Arial', sans-serif; }
+.font-fam_libe-sans-semicond {
+  font-family: 'Libe-Sans-Semicondensed', 'Helvetica', 'Arial', sans-serif; }
+.font-fam_libe-sans-extracond {
+  font-family: 'Libe-Sans-Extracondensed', 'Helvetica', 'Arial', sans-serif; }
+.font-fam_libe-sans-extended {
+  font-family: 'Libe-Sans-Extended', 'Helvetica', 'Arial', sans-serif; }
+.font-fam_libe-sans-rond {
+  font-family: 'Libe-Sans-Rond', 'Helvetica', 'Arial', sans-serif; }
+.font-fam_libe-sans-rond-cond {
+  font-family: 'Libe-Sans-Rond-Condensed', 'Helvetica', 'Arial', sans-serif; }
+.font-fam_libe-sans-rond-semicond {
+  font-family: 'Libe-Sans-Rond-Semicondensed', 'Helvetica', 'Arial', sans-serif; }
+.font-fam_libe-sans-rond-extracond {
+  font-family: 'Libe-Sans-Rond-Extracondensed', 'Helvetica', 'Arial', sans-serif; }
+.font-fam_libe-sans-rond-extended {
+  font-family: 'Libe-Sans-Rond-Extended', 'Helvetica', 'Arial', sans-serif; }
+.font-fam_libe-typewriter {
+  font-family: 'Libe-Typewriter', 'Courrier', monospace; }
+.font-fam_synthese {
+  font-family: 'Synthese', 'Helvetica', 'Arial', sans-serif; }
+.font-sty_italic { font-style: italic; }
+.font-wei_regular { font-weight: 400; }
+.font-wei_bold { font-weight: 600; }
+.font-wei_black { font-weight: 800; }
+.font-wei_ultra { font-weight: 900; }
+.font-wei_light { font-weight: 200; }

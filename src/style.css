@@ -1,0 +1,14 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  padding: 0;
+  margin: 0;
+}
+
+.physical-world {
+  width: 100%;
+  height: 100vh;
+  box-shadow: inset 0 0 0 1px #000000;
+}
