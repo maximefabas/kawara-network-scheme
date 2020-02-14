@@ -1,43 +1,43 @@
-import uuid from 'uuid'
-
 import reduce from './reducers'
 import {
   TURN_ON,
-  TURN_OFF,
-  LOOK_FOR_WIFI_SIGNALS
+  TURN_OFF
 } from './actions/actionTypes'
 
-import firstNames from './first-names.json'
-import lastNames from './last-names.json'
-const pickIn = list => {
-  const pos = Math.floor(Math.random() * list.length)
-  return list[pos]
-}
+import firstNames from './utils/first-names.json'
+import lastNames from './utils/last-names.json'
+import emojiFaces from './utils/emoji-faces'
+import { pick } from './utils'
 
 class NodeCore {
   constructor (props) {
     this.props = { ...props }
-    this.uuid = uuid.v4()
-    this.name = `${pickIn(firstNames)} ${pickIn(lastNames)}`
-    this.wifi_signal_reach = Math.sin(Math.random() * Math.PI) * 100 + 100
-    this.state = {
-      is_up: false,
-      is_looking_for_wifi_signals: false
-    }
+    this.name = `${pick(firstNames)} ${pick(lastNames)}`
+    this.face = pick(emojiFaces)
+    this.state = { is_up: false }
+    window.setInterval(() => console.log(this.name, 'peers:', this.wifiPeers), 2000)
     this.boot()
   }
 
+  get wifiPeers () {
+    return this.state.is_up
+      ? this.props.getWifiSignals()
+      : []
+  }
+
   dispatch (action, payload) {
+    console.log(this.name, 'dispatch', action)
     this.state = reduce(this.state, action, payload)
-    this.props.dispatch(this.uuid, action, payload)
+    this.props.dispatch(this.props.uuid, action, payload)
   }
 
   async boot () {
+    console.log(this.name, 'Booting...')
     const delay = Math.random() * 1500 + 800
     return new Promise((resolve, reject) => {
       window.setTimeout(() => {
         this.dispatch(TURN_ON)
-        this.lookForWifiSignals()
+        // this.request('BROADCAST', this.name)
         resolve()
       }, delay)
     })
@@ -53,8 +53,14 @@ class NodeCore {
     })
   }
 
-  lookForWifiSignals () {
-    this.dispatch(LOOK_FOR_WIFI_SIGNALS, true)
+  async request (method, body) {
+    console.log(this.name, method, body || '')
+    const fullRequest = {
+      id: Math.random().slice(2),
+      method,
+      body
+    }
+    return this.props.request()
   }
 }
 

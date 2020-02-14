@@ -6,12 +6,12 @@ import {
   Tooltip
 } from 'react-leaflet'
 import haversine from 'haversine-distance'
+import uuid from 'uuid'
 import RasterMap from '../RasterMap'
 import NodeCore from '../NodeCore'
 import {
   TURN_ON,
-  TURN_OFF,
-  LOOK_FOR_WIFI_SIGNALS
+  TURN_OFF
 } from '../NodeCore/actions/actionTypes'
 
 class PhysicalWorld extends Component {
@@ -35,12 +35,31 @@ class PhysicalWorld extends Component {
    *
    * * * * * * * * * * * * * * * */
   handleMapClick (e) {
-    const newNodeCore = new NodeCore({ dispatch: this.handleNodeUpdate })
-    const newNode = {
-      latlng: e.latlng,
-      core: newNodeCore
-    }
+    console.log('🌏 handle click on map', e.latlng)
+    const newNode = this.generateNode(e.latlng)
     this.setState({ nodes: [...this.state.nodes, newNode] })
+  }
+
+  /* * * * * * * * * * * * * * * *
+   *
+   * GENERATE NOTE
+   *
+   * * * * * * * * * * * * * * * */
+  generateNode (latlng) {
+    const newNodeUuid = uuid.v4()
+    console.log('🌏 generate node', newNodeUuid)
+    const newNodeCore = new NodeCore({
+      uuid: newNodeUuid,
+      dispatch: this.handleNodeUpdate,
+      getWifiSignals: () => this.giveWifiSignalsToNode(newNodeUuid),
+      request: () => this.handleNodeRequest(newNodeUuid)
+    })
+    return {
+      uuid: newNodeUuid,
+      latlng: latlng,
+      core: newNodeCore,
+      wifi_signal_reach: Math.sin(Math.random() * Math.PI) * 100 + 100,
+    }
   }
 
   /* * * * * * * * * * * * * * * *
@@ -49,12 +68,11 @@ class PhysicalWorld extends Component {
    *
    * * * * * * * * * * * * * * * */
   handleNodeUpdate (uuid, action, payload) {
+    console.log('🌏 handle update', uuid)
     switch (action) {
       case TURN_ON:
       case TURN_OFF:
         return this.forceUpdate()
-      case LOOK_FOR_WIFI_SIGNALS:
-        return this.giveWifiSignalsToNode(uuid)
       default:
     }
   }
@@ -64,22 +82,24 @@ class PhysicalWorld extends Component {
    * GIVE WIFI SIGNALS TO NODE
    *
    * * * * * * * * * * * * * * * */
-  async giveWifiSignalsToNode (uuid) {
-    const thisNode = this.state.nodes.find(node => node.core.uuid === uuid)
+  giveWifiSignalsToNode (uuid) {
+    console.log('🌏 give signals to node', uuid)
+    const thisNode = this.state.nodes.find(node => node.uuid === uuid)
     if (!thisNode) return
     const signals = this.state.nodes
       .filter(node => node.core.state.is_up)
-      .map(node => {
-        if (node.core.uuid === uuid) return
+      .filter(node => node.uuid !== uuid)
+      .filter(node => {
         const distance = haversine(
           { lat: thisNode.latlng.lat, lng: thisNode.latlng.lng },
           { lat: node.latlng.lat, lng: node.latlng.lng }
         )
-        if (distance > node.core.wifi_signal_reach) return
-        return { uuid: node.core.uuid }
+        console.log(distance, node.wifi_signal_reach)
+        return distance <= node.wifi_signal_reach
+        // [WIP] Some logic about signal quality here
       })
-      .filter(signal => signal)
-    // [WIP] GIVE THIS TO NODE
+      .map(node => ({ uuid: node.uuid }))
+    return signals
   }
 
   /* * * * * * * * * * * * * * * *

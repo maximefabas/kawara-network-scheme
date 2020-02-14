@@ -1,7 +1,6 @@
 import {
   TURN_ON,
-  TURN_OFF,
-  LOOK_FOR_WIFI_SIGNALS
+  TURN_OFF
 } from '../actions/actionTypes'
 
 function reducer (state, action, payload) {
@@ -21,13 +20,6 @@ function reducer (state, action, payload) {
         is_up: false,
         up_since: null,
         get_uptime: () => null
-      }
-
-    case LOOK_FOR_WIFI_SIGNALS:
-      if (typeof payload !== 'boolean') return state
-      return {
-        ...state,
-        look_for_wifi_signals: payload
       }
 
     default:
