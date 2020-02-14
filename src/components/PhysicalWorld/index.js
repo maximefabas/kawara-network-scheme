@@ -25,8 +25,12 @@ class PhysicalWorld extends Component {
     this.c = 'physical-world'
     this.state = { nodes: [] }
     this.handleMapClick = this.handleMapClick.bind(this)
+    this.generateNode = this.generateNode.bind(this)
     this.handleNodeUpdate = this.handleNodeUpdate.bind(this)
-    this.giveWifiSignalsToNode = this.giveWifiSignalsToNode.bind(this)
+    this.findNode = this.findNode.bind(this)
+    this.findNodeWifiPeers = this.findNodeWifiPeers.bind(this)
+    this.handleNodeRequest = this.handleNodeRequest.bind(this)
+    this.sendRequestToNode = this.sendRequestToNode.bind(this)
   }
 
   /* * * * * * * * * * * * * * * *
@@ -35,7 +39,7 @@ class PhysicalWorld extends Component {
    *
    * * * * * * * * * * * * * * * */
   handleMapClick (e) {
-    console.log('🌏 handle click on map', e.latlng)
+    console.log('🌏 handle click on map', `[${e.latlng.lat.toString().slice(0, 8)},${e.latlng.lng.toString().slice(0, 8)}]`)
     const newNode = this.generateNode(e.latlng)
     this.setState({ nodes: [...this.state.nodes, newNode] })
   }
@@ -51,8 +55,7 @@ class PhysicalWorld extends Component {
     const newNodeCore = new NodeCore({
       uuid: newNodeUuid,
       dispatch: this.handleNodeUpdate,
-      getWifiSignals: () => this.giveWifiSignalsToNode(newNodeUuid),
-      request: () => this.handleNodeRequest(newNodeUuid)
+      request: req => this.handleNodeRequest(newNodeUuid, req)
     })
     return {
       uuid: newNodeUuid,
@@ -68,7 +71,6 @@ class PhysicalWorld extends Component {
    *
    * * * * * * * * * * * * * * * */
   handleNodeUpdate (uuid, action, payload) {
-    console.log('🌏 handle update', uuid)
     switch (action) {
       case TURN_ON:
       case TURN_OFF:
@@ -79,27 +81,67 @@ class PhysicalWorld extends Component {
 
   /* * * * * * * * * * * * * * * *
    *
+   * FIND NODE
+   *
+   * * * * * * * * * * * * * * * */
+  findNode (uuid) {
+    return this.state.nodes.find(node => node.uuid === uuid)
+  }
+
+  /* * * * * * * * * * * * * * * *
+   *
    * GIVE WIFI SIGNALS TO NODE
    *
    * * * * * * * * * * * * * * * */
-  giveWifiSignalsToNode (uuid) {
-    console.log('🌏 give signals to node', uuid)
-    const thisNode = this.state.nodes.find(node => node.uuid === uuid)
+  findNodeWifiPeers (uuid) {
+    console.log('🌏 find node wifi peers', uuid)
+    const thisNode = this.findNode(uuid)
     if (!thisNode) return
-    const signals = this.state.nodes
+    const peers = this.state.nodes
       .filter(node => node.core.state.is_up)
       .filter(node => node.uuid !== uuid)
-      .filter(node => {
+      .map(node => {
         const distance = haversine(
           { lat: thisNode.latlng.lat, lng: thisNode.latlng.lng },
           { lat: node.latlng.lat, lng: node.latlng.lng }
         )
-        console.log(distance, node.wifi_signal_reach)
-        return distance <= node.wifi_signal_reach
-        // [WIP] Some logic about signal quality here
+        return { node, distance }
       })
-      .map(node => ({ uuid: node.uuid }))
-    return signals
+      .filter(peer => {
+        return peer.distance <= thisNode.wifi_signal_reach
+      })
+    return peers
+  }
+
+  /* * * * * * * * * * * * * * * *
+   *
+   * HANDLE NODE REQUEST
+   *
+   * * * * * * * * * * * * * * * */
+  handleNodeRequest (uuid, req) {
+    console.log(`🌏 handle request ${req.id} from`, uuid)
+    // Be careful with JSON objects
+    const jsonRequest = JSON.stringify(req)
+    const peers = this.findNodeWifiPeers(uuid)
+    return peers.forEach(peer => {
+      this.sendRequestToNode(peer.node.uuid, jsonRequest)
+    })
+  }
+
+  /* * * * * * * * * * * * * * * *
+   *
+   * HANDLE NODE REQUEST
+   *
+   * * * * * * * * * * * * * * * */
+  sendRequestToNode (uuid, jsonReq) {
+    // Be careful with JSON objects
+    const req = JSON.parse(jsonReq)
+    console.log(`🌏 send request ${req.id} to`, uuid)
+    const node = this.findNode(uuid)
+    if (!node) return
+    // [WIP] Work on delay better
+    const delay = Math.random() * 200 + 100
+    window.setTimeout(() => node.core.receive(req), delay)
   }
 
   /* * * * * * * * * * * * * * * *

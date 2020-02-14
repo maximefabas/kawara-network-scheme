@@ -1,6 +1,7 @@
 import {
   TURN_ON,
-  TURN_OFF
+  TURN_OFF,
+  LOG_REQUEST
 } from '../actions/actionTypes'
 
 function reducer (state, action, payload) {
@@ -16,10 +17,18 @@ function reducer (state, action, payload) {
 
     case TURN_OFF:
       return {
-        ...state, 
+        ...state,
         is_up: false,
         up_since: null,
         get_uptime: () => null
+      }
+
+    case LOG_REQUEST:
+      return {
+        ...state,
+        requests_log: state.requests_log
+          ? [...state.requests_log, payload]
+          : [payload]
       }
 
     default:

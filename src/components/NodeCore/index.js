@@ -1,7 +1,8 @@
 import reduce from './reducers'
 import {
   TURN_ON,
-  TURN_OFF
+  TURN_OFF,
+  LOG_REQUEST
 } from './actions/actionTypes'
 
 import firstNames from './utils/first-names.json'
@@ -15,35 +16,40 @@ class NodeCore {
     this.name = `${pick(firstNames)} ${pick(lastNames)}`
     this.face = pick(emojiFaces)
     this.state = { is_up: false }
-    window.setInterval(() => console.log(this.name, 'peers:', this.wifiPeers), 2000)
     this.boot()
+    this.dispatch = this.dispatch.bind(this)
+    this.boot = this.boot.bind(this)
+    this.shutDown = this.shutDown.bind(this)
+    this.request = this.request.bind(this)
+    this.receive = this.receive.bind(this)
   }
 
   get wifiPeers () {
     return this.state.is_up
-      ? this.props.getWifiSignals()
+      ? this.props.getWifiPeers()
       : []
   }
 
   dispatch (action, payload) {
-    console.log(this.name, 'dispatch', action)
+    console.log(this.face, 'dispatch', action, (payload || ''))
     this.state = reduce(this.state, action, payload)
     this.props.dispatch(this.props.uuid, action, payload)
   }
 
   async boot () {
-    console.log(this.name, 'Booting...')
+    console.log(this.face, 'booting...')
     const delay = Math.random() * 1500 + 800
     return new Promise((resolve, reject) => {
       window.setTimeout(() => {
         this.dispatch(TURN_ON)
-        // this.request('BROADCAST', this.name)
+        this.request('broadcast://', `Hi, I'm ${this.name}`)
         resolve()
       }, delay)
     })
   }
 
   async shutDown () {
+    console.log(this.face, 'shutting down...')
     const delay = Math.random() * 1500 + 800
     return new Promise((resolve, reject) => {
       window.setTimeout(() => {
@@ -54,13 +60,19 @@ class NodeCore {
   }
 
   async request (method, body) {
-    console.log(this.name, method, body || '')
+    console.log(this.face, 'request', method, body || '')
     const fullRequest = {
-      id: Math.random().slice(2),
+      id: Math.random().toString(36).slice(2),
+      sent_on: Date.now(),
       method,
       body
     }
-    return this.props.request()
+    this.dispatch(LOG_REQUEST, fullRequest)
+    return this.props.request(fullRequest)
+  }
+
+  receive (req) {
+    console.log(this.face, 'recieved', req)
   }
 }
 
