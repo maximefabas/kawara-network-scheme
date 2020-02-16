@@ -12,3 +12,11 @@ body {
   height: 100vh;
   box-shadow: inset 0 0 0 1px #000000;
 }
+
+.node-marker {
+  z-index: 402;
+}
+
+.node-wifi-reach-marker {
+  z-index: 401;
+}

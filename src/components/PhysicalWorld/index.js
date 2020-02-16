@@ -3,7 +3,8 @@ import {
   LayerGroup,
   Circle,
   CircleMarker,
-  Tooltip
+  Tooltip,
+  Polyline
 } from 'react-leaflet'
 import haversine from 'haversine-distance'
 import uuid from 'uuid'
@@ -11,7 +12,8 @@ import RasterMap from '../RasterMap'
 import NodeCore from '../NodeCore'
 import {
   TURN_ON,
-  TURN_OFF
+  TURN_OFF,
+  LOG_REQUEST
 } from '../NodeCore/actions/actionTypes'
 
 class PhysicalWorld extends Component {
@@ -23,14 +25,17 @@ class PhysicalWorld extends Component {
   constructor (props) {
     super(props)
     this.c = 'physical-world'
-    this.state = { nodes: [] }
+    this.state = {
+      nodes: [],
+      data_transfers: []
+    }
     this.handleMapClick = this.handleMapClick.bind(this)
     this.generateNode = this.generateNode.bind(this)
     this.handleNodeUpdate = this.handleNodeUpdate.bind(this)
     this.findNode = this.findNode.bind(this)
     this.findNodeWifiPeers = this.findNodeWifiPeers.bind(this)
-    this.handleNodeRequest = this.handleNodeRequest.bind(this)
-    this.sendRequestToNode = this.sendRequestToNode.bind(this)
+    this.handleNodeCoreDataEmition = this.handleNodeCoreDataEmition.bind(this)
+    this.emitDataToNodeCore = this.emitDataToNodeCore.bind(this)
   }
 
   /* * * * * * * * * * * * * * * *
@@ -55,13 +60,14 @@ class PhysicalWorld extends Component {
     const newNodeCore = new NodeCore({
       uuid: newNodeUuid,
       dispatch: this.handleNodeUpdate,
-      request: req => this.handleNodeRequest(newNodeUuid, req)
+      emit: req => this.handleNodeCoreDataEmition(newNodeUuid, req)
     })
     return {
       uuid: newNodeUuid,
       latlng: latlng,
       core: newNodeCore,
-      wifi_signal_reach: Math.sin(Math.random() * Math.PI) * 100 + 100,
+      wifi_signal_reach: Math.sin(Math.random() * Math.PI) * 50 + 50,
+      max_wifi_bits_per_sec: Math.random() * (500e6 - 1e6) + 1e6
     }
   }
 
@@ -71,9 +77,14 @@ class PhysicalWorld extends Component {
    *
    * * * * * * * * * * * * * * * */
   handleNodeUpdate (uuid, action, payload) {
+    const node = this.findNode(uuid)
+    if (!node) return
+    node.state_footprint = Math.random().toString().slice(2)
     switch (action) {
       case TURN_ON:
       case TURN_OFF:
+        return this.forceUpdate()
+      case LOG_REQUEST:
         return this.forceUpdate()
       default:
     }
@@ -94,9 +105,8 @@ class PhysicalWorld extends Component {
    *
    * * * * * * * * * * * * * * * */
   findNodeWifiPeers (uuid) {
-    console.log('🌏 find node wifi peers', uuid)
     const thisNode = this.findNode(uuid)
-    if (!thisNode) return
+    if (!thisNode || !thisNode.core.state.is_up) return
     const peers = this.state.nodes
       .filter(node => node.core.state.is_up)
       .filter(node => node.uuid !== uuid)
@@ -108,40 +118,65 @@ class PhysicalWorld extends Component {
         return { node, distance }
       })
       .filter(peer => {
-        return peer.distance <= thisNode.wifi_signal_reach
+        return peer.distance <= peer.node.wifi_signal_reach
       })
     return peers
   }
 
   /* * * * * * * * * * * * * * * *
    *
-   * HANDLE NODE REQUEST
+   * HANDLE NODE CORE DATA EMITION
    *
    * * * * * * * * * * * * * * * */
-  handleNodeRequest (uuid, req) {
-    console.log(`🌏 handle request ${req.id} from`, uuid)
-    // Be careful with JSON objects
-    const jsonRequest = JSON.stringify(req)
+  handleNodeCoreDataEmition (uuid, data) {
+    if (typeof data !== 'string') return
+    const node = this.findNode(uuid)
     const peers = this.findNodeWifiPeers(uuid)
-    return peers.forEach(peer => {
-      this.sendRequestToNode(peer.node.uuid, jsonRequest)
+    if (!peers || !node) return
+    peers.forEach(peer => {
+      const dataTransfer = {
+        id: Math.random().toString().slice(2),
+        data,
+        emited_on: Date.now(),
+        size_in_bytes: Math.ceil(data.length / 8),
+        route: {
+          from: peer.node.uuid,
+          to: node.uuid,
+          from_latlng: peer.node.latlng,
+          to_latlng: node.latlng,
+          bits_per_sec: peer.node.max_wifi_bits_per_sec
+        }
+      }
+      this.setState((prev, props) => ({
+        data_transfers: [
+          ...prev.data_transfers,
+          dataTransfer
+        ]
+      }))
+      this.emitDataToNodeCore(peer.node.uuid, dataTransfer)
     })
   }
 
   /* * * * * * * * * * * * * * * *
    *
-   * HANDLE NODE REQUEST
+   * EMIT DATA TRANSFER TO NODE CORE
    *
    * * * * * * * * * * * * * * * */
-  sendRequestToNode (uuid, jsonReq) {
-    // Be careful with JSON objects
-    const req = JSON.parse(jsonReq)
-    console.log(`🌏 send request ${req.id} to`, uuid)
+  emitDataToNodeCore (uuid, dataTransfer) {
     const node = this.findNode(uuid)
     if (!node) return
-    // [WIP] Work on delay better
-    const delay = Math.random() * 200 + 100
-    window.setTimeout(() => node.core.receive(req), delay)
+    const delay = Math.random() * 1500 + 500
+    window.setTimeout(
+      () => {
+        this.setState((prev, props) => ({
+          data_transfers: [
+            ...prev.data_transfers.filter(d => d.id !== dataTransfer.id)
+          ]
+        }))
+        node.core.receive(dataTransfer.data)
+      },
+      delay
+    )
   }
 
   /* * * * * * * * * * * * * * * *
@@ -156,6 +191,17 @@ class PhysicalWorld extends Component {
       ...node.core,
       ...node.core.state
     }))
+    const routes = this.state.nodes.map(node => {
+      const peers = this.findNodeWifiPeers(node.uuid)
+      if (!peers) return []
+      return peers.map(peer => ({
+        from: peer.node.uuid,
+        to: node.uuid,
+        from_latlng: peer.node.latlng,
+        to_latlng: node.latlng,
+        bits_per_sec: peer.node.max_wifi_bits_per_sec
+      }))
+    }).flat()
 
     /* Assign classes */
     const classes = [this.c]
@@ -166,38 +212,72 @@ class PhysicalWorld extends Component {
       <RasterMap
         onClick={this.handleMapClick}
         center={[48.870812, 2.376566]}
-        zoom={14}>
+        tilesUrl={'https://cartodb-basemaps-{s}.global.ssl.fastly.net/dark_all/{z}/{x}/{y}.png'}
+        zoom={17}>
         <LayerGroup>{
           // Wifi ranges
           nodes
             .filter(node => node.is_up)
             .map(node => {
               return <Circle
-                key={node.uuid}
+                className={'node-wifi-reach'}
+                key={node.state_footprint}
                 center={node.latlng}
                 stroke={false}
-                fillColor={'#333333'}
-                fillOpacity={.05}
+                fillColor={'cornflowerblue'}
+                fillOpacity={0.02}
                 radius={node.wifi_signal_reach} />
             })
         }</LayerGroup>
+
+        <LayerGroup>{
+          // Wifi routes
+          routes
+            .map(route => {
+              return <Polyline
+                className={'route'}
+                key={`${route.from_latlng}_${route.to_latlng}`}
+                positions={[route.from_latlng, route.to_latlng]}
+                color={'white'}
+                opacity={0.02}
+                weight={route.bits_per_sec / 1e6 / (500 / 40)} />
+            })
+        }</LayerGroup>
+
+        <LayerGroup>{
+          // Data transfers
+          this.state.data_transfers
+            .map(dataTransfer => {
+              return <Polyline
+                className={'data-transfer'}
+                key={dataTransfer.id}
+                positions={[dataTransfer.route.from_latlng, dataTransfer.route.to_latlng]}
+                color={'orange'}
+                opacity={0.7}
+                weight={dataTransfer.route.bits_per_sec / 1e6 / (500 / 20)} />
+            })
+        }</LayerGroup>
+
         <LayerGroup>{
           // Nodes
           nodes.map(node => {
             return <CircleMarker
-              key={node.uuid}
-              radius={6}
+              className={'node'}
+              key={node.state_footprint}
+              radius={3}
               fill={true}
-              fillColor={node.is_up ? '#00FF00' : '#FF0000'}
+              fillColor={node.is_up ? '#0f0' : 'red'}
               fillOpacity={1}
               stroke={false}
               center={node.latlng}>
               <Tooltip>
-                {node.name}
+                {node.face} {node.name}<br/>
+                out_requests: {node.state.out_requests_log.length}
               </Tooltip>
             </CircleMarker>
           })
         }</LayerGroup>
+
       </RasterMap>
     </div>
   }

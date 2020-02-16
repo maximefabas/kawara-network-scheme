@@ -26,8 +26,8 @@ function reducer (state, action, payload) {
     case LOG_REQUEST:
       return {
         ...state,
-        requests_log: state.requests_log
-          ? [...state.requests_log, payload]
+        out_requests_log: state.out_requests_log
+          ? [...state.out_requests_log, payload]
           : [payload]
       }
 
